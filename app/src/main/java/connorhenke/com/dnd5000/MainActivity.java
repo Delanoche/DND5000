@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView recyclerView;
     private List<Spell> spellList;
     private SpellAdapter adapter;
-    private View bottomSheet;
-    private BottomSheetBehavior bottomSheetBehavior;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,19 +44,15 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         recyclerView = (RecyclerView) findViewById(R.id.spell_list);
-        bottomSheet = findViewById(R.id.bottom_sheet);
         spellList = new ArrayList<>();
         adapter = new SpellAdapter(spellList, new SpellAdapter.SpellClickListener() {
             @Override
             public void onClick(Spell spell) {
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                // Nothing yet
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 
         InputStream inputStream = getResources().openRawResource(R.raw.spells);
         JSONArray array;
