@@ -1,6 +1,9 @@
 package connorhenke.com.dnd5000;
 
-import org.json.JSONArray;
+import android.util.Log;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,7 +13,7 @@ public class Spell {
     private String castingTimeMeasure;
     private int castingTime;
     private String castingQualifier;
-    private boolean visual;
+    private boolean verbal;
     private boolean somatic;
     private boolean material;
     private String materialQualifier;
@@ -24,12 +27,12 @@ public class Spell {
     private int rangeDistance;
     private String school;
 
-    public Spell(String name, String castingTimeMeasure, int castingTime, String castingQualifier, boolean visual, boolean somatic, boolean material, String materialQualifier, String description, boolean concentration, String duration, int durationTime, boolean durationUpTo, int level, String range, int rangeDistance, String school) {
+    public Spell(String name, String castingTimeMeasure, int castingTime, String castingQualifier, boolean verbal, boolean somatic, boolean material, String materialQualifier, String description, boolean concentration, String duration, int durationTime, boolean durationUpTo, int level, String range, int rangeDistance, String school) {
         this.name = name;
         this.castingTimeMeasure = castingTimeMeasure;
         this.castingTime = castingTime;
         this.castingQualifier = castingQualifier;
-        this.visual = visual;
+        this.verbal = verbal;
         this.somatic = somatic;
         this.material = material;
         this.materialQualifier = materialQualifier;
@@ -42,6 +45,73 @@ public class Spell {
         this.range = range;
         this.rangeDistance = rangeDistance;
         this.school = school;
+    }
+
+    public String getRangeString() {
+        if (range.equals("distance")) {
+            if (rangeDistance == 0) {
+                return "Touch";
+            }
+            return rangeDistance + " feet";
+        } else {
+            return StringUtils.capitalize(range);
+        }
+    }
+
+    public String getComponentsString() {
+        StringBuilder builder = new StringBuilder();
+        if (verbal) {
+            builder.append("V ");
+        }
+        if (somatic) {
+            builder.append("S ");
+        }
+        if (material) {
+            builder.append("M ");
+            if (materialQualifier.length() > 0) {
+                builder.append("(");
+                builder.append(materialQualifier);
+                builder.append(")");
+            }
+
+        }
+        return builder.toString();
+    }
+
+    public String getDurationString() {
+        StringBuilder builder = new StringBuilder();
+        if (concentration) {
+            builder.append("concentration, ");
+        }
+        if (durationUpTo) {
+            builder.append("up to ");
+        }
+        if (durationTime == 0) {
+            builder.append("instantaneous");
+        } else {
+            String temp = duration;
+            if (durationTime >= 1440) {
+                durationTime /= 1440;
+                temp = "days";
+            }
+            if (durationTime >= 60) {
+                durationTime /= 60;
+                temp = "hours";
+            }
+            builder.append(durationTime);
+            builder.append(" ");
+            builder.append(temp);
+        }
+        return StringUtils.capitalize(builder.toString());
+    }
+
+    public String getSchoolString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Level ");
+        builder.append(level);
+        builder.append(" ");
+        builder.append(school);
+        return builder.toString();
     }
 
     public String getName() {
@@ -60,8 +130,8 @@ public class Spell {
         return castingQualifier;
     }
 
-    public boolean isVisual() {
-        return visual;
+    public boolean isVerbal() {
+        return verbal;
     }
 
     public boolean isSomatic() {

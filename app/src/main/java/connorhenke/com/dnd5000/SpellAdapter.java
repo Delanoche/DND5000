@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 import java.util.List;
 
 public class SpellAdapter extends RecyclerView.Adapter<SpellAdapter.ViewHolder> {
@@ -36,19 +38,28 @@ public class SpellAdapter extends RecyclerView.Adapter<SpellAdapter.ViewHolder> 
                 listener.onClick(spellList.get(position));
             }
         });
-        holder.name.setText(spell.getName());
-//        float scale = holder.itemView.getContext().getResources().getDisplayMetrics().density;
-//        int dp16 = (int) (16*scale + 0.5f);
-//        int dp8 = (int) (8*scale + 0.5f);
-//        if (position == spellList.size() - 1) {
-//            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//            layoutParams.setMargins(dp16, dp8, dp16, dp16);
-//            holder.card.setLayoutParams(layoutParams);
-//        } else if (position == 0) {
-//            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//            layoutParams.setMargins(dp16, dp16, dp16, dp8);
-//            holder.card.setLayoutParams(layoutParams);
-//        }
+        holder.name.setText(WordUtils.capitalize(spell.getName()));
+        float scale = holder.itemView.getContext().getResources().getDisplayMetrics().density;
+        int dp16 = (int) (16*scale + 0.5f);
+        int dp8 = (int) (8*scale + 0.5f);
+        int dp4 = (int) (4*scale + 0.5f);
+        if (position == 0) {
+            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(dp16, dp16, dp16, dp4);
+            holder.card.setLayoutParams(layoutParams);
+        } else if (position == spellList.size() - 1) {
+            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(dp16, dp4, dp16, dp16);
+            holder.card.setLayoutParams(layoutParams);
+        } else {
+            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(dp16, dp4, dp16, dp4);
+            holder.card.setLayoutParams(layoutParams);
+        }
+    }
+
+    public void swap(List<Spell> list) {
+        this.spellList = list;
     }
 
     @Override

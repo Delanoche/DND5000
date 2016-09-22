@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="spell"
+            type="connorhenke.com.dnd5000.Spell" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:paddingTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:text="@{spell.name}"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textStyle="italic"
+            android:paddingTop="4dp"
+            android:textColor="@android:color/white"
+            android:text='@{spell.getSchoolString()}'
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textStyle="bold"
+            android:paddingTop="8dp"
+            android:textColor="@android:color/white"
+            android:text='@{"Casting Time: " + spell.castingTime + " " + spell.castingTimeMeasure + " " + spell.castingQualifier}' />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textStyle="bold"
+            android:paddingTop="8dp"
+            android:textColor="@android:color/white"
+            android:text='@{"Range: " + spell.getRangeString()}' />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textStyle="bold"
+            android:paddingTop="8dp"
+            android:textColor="@android:color/white"
+            android:text='@{"Components: " + spell.getComponentsString()}' />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textStyle="bold"
+            android:paddingTop="8dp"
+            android:textColor="@android:color/white"
+            android:text='@{"Duration: " + spell.getDurationString()}' />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="8dp"
+            android:paddingBottom="16dp"
+            android:textColor="@android:color/white"
+            android:text="@{spell.description}" />
+
+    </LinearLayout>
+
+    </layout>
