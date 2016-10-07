@@ -36,7 +36,7 @@
                 <EditText
                     android:id="@+id/search_edit_text"
                     android:visibility="gone"
-                    android:hint="Search"
+                    android:hint="@string/action_search"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
