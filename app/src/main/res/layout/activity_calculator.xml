@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="calculator"
+            type="connorhenke.com.dnd5000.Calculator" />
+
+    </data>
+
+    <ScrollView
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/activity_calculator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context="connorhenke.com.dnd5000.CalculatorActivity">
+
+            <TextView
+                android:id="@+id/calculator_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:layout_alignParentTop="true"
+                android:background="@android:color/transparent" />
+
+            <LinearLayout
+                android:id="@+id/calculator_first_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/calculator_text_view"
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/calculator_back"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="DELETE" />
+
+                <TextView
+                    android:id="@+id/calculator_clear_entry"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="CE" />
+
+                <TextView
+                    android:id="@+id/calculator_clear"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="C" />
+
+                <TextView
+                    android:id="@+id/calculator_divide"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="/" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/calculator_second_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/calculator_first_row"
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/calculator_7"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="7" />
+
+                <TextView
+                    android:id="@+id/calculator_8"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="8" />
+
+                <TextView
+                    android:id="@+id/calculator_9"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="9" />
+
+                <TextView
+                    android:id="@+id/calculator_multiply"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="*" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/calculator_third_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/calculator_second_row"
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/calculator_4"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="4" />
+
+                <TextView
+                    android:id="@+id/calculator_5"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="5" />
+
+                <TextView
+                    android:id="@+id/calculator_6"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="6" />
+
+                <TextView
+                    android:id="@+id/calculator_subtract"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="-" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/calculator_fourth_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/calculator_third_row"
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/calculator_1"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="1" />
+
+                <TextView
+                    android:id="@+id/calculator_2"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="2" />
+
+                <TextView
+                    android:id="@+id/calculator_3"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="3" />
+
+                <TextView
+                    android:id="@+id/calculator_add"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="+" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/calculator_fifth_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/calculator_fourth_row"
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/calculator_0"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:text="0" />
+
+                <TextView
+                    android:id="@+id/calculator_decimal"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:text="." />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/calculator_sixth_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/calculator_fifth_row"
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/calculator_cp"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text='@{calculator.cp > 0 ? "" + calculator.cp : "CP"}' />
+
+                <TextView
+                    android:id="@+id/calculator_sp"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text='@{calculator.sp > 0 ? "" + calculator.sp : "SP"}' />
+
+                <TextView
+                    android:id="@+id/calculator_ep"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text='@{calculator.ep > 0 ? "" + calculator.ep : "EP"}' />
+
+                <TextView
+                    android:id="@+id/calculator_gp"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text='@{calculator.gp > 0 ? "" + calculator.gp : "GP"}' />
+
+                <TextView
+                    android:id="@+id/calculator_pp"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text='@{calculator.pp > 0 ? "" + calculator.pp : "PP"}' />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/calculator_seventh_row"
+                android:background="@android:color/transparent"
+                android:layout_below="@id/calculator_sixth_row"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="64dp">
+
+                <TextView
+                    style="@style/CalculatorTextView"
+                    android:text="SPLIT"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="64dp"
+                    android:id="@+id/calculator_split_button" />
+
+                <TextView
+                    style="@style/CalculatorTextView"
+                    android:text="2"
+                    android:clickable="false"
+                    android:layout_height="64dp"
+                    android:id="@+id/calculator_split_number"
+                    android:layout_width="64dp" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        style="@style/CalculatorTextView"
+                        android:layout_width="64dp"
+                        android:layout_height="32dp"
+                        app:srcCompat="@drawable/ic_keyboard_arrow_up_white_24dp"
+                        android:id="@+id/calculator_split_up" />
+
+                    <ImageView
+                        style="@style/CalculatorTextView"
+                        android:layout_width="64dp"
+                        android:layout_height="32dp"
+                        app:srcCompat="@drawable/ic_keyboard_arrow_down_white_24dp"
+                        android:id="@+id/calculator_split_down" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/calculator_eighth_row"
+                android:layout_below="@id/calculator_seventh_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/calculator_split_cp"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text='@{calculator.splitCp > 0 ? "" + calculator.splitCp : "CP"}' />
+
+                <TextView
+                    android:id="@+id/calculator_split_sp"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text='@{calculator.splitSp > 0 ? "" + calculator.splitSp : "SP"}' />
+
+                <TextView
+                    android:id="@+id/calculator_split_ep"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text='@{calculator.splitEp > 0 ? "" + calculator.splitEp : "EP"}' />
+
+                <TextView
+                    android:id="@+id/calculator_split_gp"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text='@{calculator.splitGp > 0 ? "" + calculator.splitGp : "GP"}' />
+
+                <TextView
+                    android:id="@+id/calculator_split_pp"
+                    style="@style/CalculatorTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text='@{calculator.splitPp > 0 ? "" + calculator.splitPp : "PP"}' />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="@android:color/transparent"
+                android:layout_below="@id/calculator_eighth_row"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="64dp">
+
+                <TextView
+                    style="@style/CalculatorTextView"
+                    android:id="@+id/calculator_split_remainder"
+                    android:clickable="false"
+                    android:layout_height="64dp"
+                    android:text='@{calculator.remainder == 0 ? "" : "" + calculator.remainder + " CP remaining"}'
+                    android:layout_width="match_parent" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+</layout>
