@@ -22,6 +22,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -64,6 +65,18 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         search = (EditText) toolbar.findViewById(R.id.search_edit_text);
+        search.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                InputMethodManager methodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                if (hasFocus) {
+                    bottomSheetBehavior.setState(bottomSheetBehavior.STATE_HIDDEN);
+                    methodManager.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT);
+                } else {
+                    methodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        });
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -105,6 +118,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(Spell spell) {
                 binding.setSpell(spell);
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                recyclerView.requestFocus();
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -133,9 +147,7 @@ public class MainActivity extends AppCompatActivity
             Collections.sort(spellList, Sorter.alphabetically());
             adapter.notifyDataSetChanged();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (IOException|JSONException e) {
             e.printStackTrace();
         }
 
@@ -182,6 +194,7 @@ public class MainActivity extends AppCompatActivity
                 setTitle("");
                 item.setIcon(R.drawable.ic_clear_white_24dp);
                 isSearchVisible = true;
+                search.requestFocus();
             } else {
                 search.setVisibility(View.GONE);
                 search.getEditableText().clear();
