@@ -22,6 +22,7 @@
             android:name=".MonstersActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".MonsterDetailActivity"></activity>
+        <activity android:name=".CalculatorActivity"></activity>
     </application>
 
 </manifest>
