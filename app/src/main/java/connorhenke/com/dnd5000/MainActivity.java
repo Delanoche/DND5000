@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void afterTextChanged(Editable editable) {
-                final String text = editable.toString();
+                final String text = editable.toString().toLowerCase();
                 Observable.from(spellList)
                         .subscribeOn(Schedulers.computation())
                         .filter(new Func1<Spell, Boolean>() {
