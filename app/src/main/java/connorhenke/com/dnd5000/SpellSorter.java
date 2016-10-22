@@ -2,7 +2,7 @@ package connorhenke.com.dnd5000;
 
 import java.util.Comparator;
 
-public class Sorter {
+public class SpellSorter {
 
     public static Comparator<Spell> alphabetically() {
         return new Comparator<Spell>() {

@@ -1,51 +1,60 @@
 package connorhenke.com.dnd5000;
 
-import android.util.Log;
-
+import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.text.WordUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class Spell {
 
+    @SerializedName("name")
     private String name;
-    private String castingTimeMeasure;
-    private int castingTime;
-    private String castingQualifier;
-    private boolean verbal;
-    private boolean somatic;
-    private boolean material;
-    private String materialQualifier;
-    private String description;
-    private boolean concentration;
-    private String duration;
-    private int durationTime;
-    private boolean durationUpTo;
-    private int level;
-    private String range;
-    private int rangeDistance;
-    private String school;
 
-    public Spell(String name, String castingTimeMeasure, int castingTime, String castingQualifier, boolean verbal, boolean somatic, boolean material, String materialQualifier, String description, boolean concentration, String duration, int durationTime, boolean durationUpTo, int level, String range, int rangeDistance, String school) {
-        this.name = name;
-        this.castingTimeMeasure = castingTimeMeasure;
-        this.castingTime = castingTime;
-        this.castingQualifier = castingQualifier;
-        this.verbal = verbal;
-        this.somatic = somatic;
-        this.material = material;
-        this.materialQualifier = materialQualifier;
-        this.description = description;
-        this.concentration = concentration;
-        this.duration = duration;
-        this.durationTime = durationTime;
-        this.durationUpTo = durationUpTo;
-        this.level = level;
-        this.range = range;
-        this.rangeDistance = rangeDistance;
-        this.school = school;
-    }
+    @SerializedName("casting_measure")
+    private String castingTimeMeasure;
+
+    @SerializedName("casting_time")
+    private int castingTime;
+
+    @SerializedName("casting_qualifier")
+    private String castingQualifier;
+
+    @SerializedName("v")
+    private boolean verbal;
+
+    @SerializedName("s")
+    private boolean somatic;
+
+    @SerializedName("m")
+    private boolean material;
+
+    @SerializedName("material_qualifier")
+    private String materialQualifier;
+
+    @SerializedName("description")
+    private String description;
+
+    @SerializedName("concentration")
+    private boolean concentration;
+
+    @SerializedName("duration_measure")
+    private String duration;
+
+    @SerializedName("duration")
+    private int durationTime;
+
+    @SerializedName("duration_up_to")
+    private boolean durationUpTo;
+
+    @SerializedName("level")
+    private int level;
+
+    @SerializedName("range_type")
+    private String range;
+
+    @SerializedName("range_distance")
+    private int rangeDistance;
+
+    @SerializedName("school")
+    private String school;
 
     public String getRangeString() {
         if (range.equals("distance")) {
@@ -75,6 +84,7 @@ public class Spell {
             }
 
         }
+
         return builder.toString();
     }
 
@@ -102,6 +112,7 @@ public class Spell {
             builder.append(" ");
             builder.append(temp);
         }
+
         return StringUtils.capitalize(builder.toString());
     }
 
@@ -111,6 +122,7 @@ public class Spell {
         builder.append(level);
         builder.append(" ");
         builder.append(school);
+
         return builder.toString();
     }
 
@@ -180,45 +192,5 @@ public class Spell {
 
     public String getSchool() {
         return school;
-    }
-
-    public static Spell fromJson(JSONObject object) throws JSONException {
-        String name = object.getString("name");
-        int level = object.getInt("level");
-        int rangeDistance = object.getInt("range_distance");
-        String description = object.getString("description");
-        int castingTime = object.getInt("casting_time");
-        String castingMeasure = object.getString("casting_measure");
-        String durationMeasure = object.getString("duration_measure");
-        String rangeType = object.getString("range_type");
-        boolean durationUpTo = object.getBoolean("duration_up_to");
-        JSONObject components = object.getJSONObject("components");
-        boolean verbal = components.optBoolean("v", false);
-        boolean somatic = components.optBoolean("s", false);
-        boolean material = components.optBoolean("m", false);
-        int durationTime = object.getInt("duration");
-        boolean concentration = object.getBoolean("concentration");
-        String materialQualifier = object.getString("material_qualifier");
-        String castingQualifier = object.getString("casting_qualifier");
-        String school = object.getString("school");
-
-        Spell spell = new Spell(name,
-                castingMeasure,
-                castingTime,
-                castingQualifier,
-                verbal,
-                somatic,
-                material,
-                materialQualifier,
-                description,
-                concentration,
-                durationMeasure,
-                durationTime,
-                durationUpTo,
-                level,
-                rangeType,
-                rangeDistance,
-                school);
-        return spell;
     }
 }

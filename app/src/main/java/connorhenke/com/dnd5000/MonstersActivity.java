@@ -2,41 +2,28 @@ package connorhenke.com.dnd5000;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.JsonReader;
-import android.view.KeyEvent;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -46,26 +33,25 @@ import java.util.Collections;
 import java.util.List;
 
 import connorhenke.com.dnd5000.databinding.ActivityMainBinding;
+import connorhenke.com.dnd5000.databinding.ActivityMonstersBinding;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MonstersActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView recyclerView;
-    private List<Spell> spellList;
-    private SpellAdapter adapter;
-    private View bottomSheet;
-    private BottomSheetBehavior bottomSheetBehavior;
+    private List<Monster> monsterList;
+    private MonsterAdapter adapter;
     private EditText search;
     private boolean isSearchVisible;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        final ActivityMonstersBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_monsters);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -75,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onFocusChange(View v, boolean hasFocus) {
                 InputMethodManager methodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                 if (hasFocus) {
-                    bottomSheetBehavior.setState(bottomSheetBehavior.STATE_HIDDEN);
                     methodManager.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT);
                 } else {
                     methodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
@@ -96,44 +81,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void afterTextChanged(Editable editable) {
                 final String text = editable.toString().toLowerCase();
-                Observable.from(spellList)
+                Observable.from(monsterList)
                         .subscribeOn(Schedulers.computation())
-                        .filter(new Func1<Spell, Boolean>() {
+                        .filter(new Func1<Monster, Boolean>() {
                             @Override
-                            public Boolean call(Spell spell) {
-                                return spell.getName().contains(text) || spell.getDescription().contains(text) || spell.getSchool().contains(text);
+                            public Boolean call(Monster monster) {
+                                return monster.getName().toLowerCase().contains(text);
                             }
                         })
                         .observeOn(AndroidSchedulers.mainThread())
                         .toList()
-                        .subscribe(new Action1<List<Spell>>() {
+                        .subscribe(new Action1<List<Monster>>() {
                             @Override
-                            public void call(List<Spell> spells) {
-                                adapter.swap(spells);
+                            public void call(List<Monster> monsters) {
+                                adapter.swap(monsters);
                                 adapter.notifyDataSetChanged();
                             }
                         });
             }
         });
-        recyclerView = (RecyclerView) findViewById(R.id.spell_list);
-        bottomSheet = findViewById(R.id.bottom_sheet);
-        spellList = new ArrayList<>();
-        adapter = new SpellAdapter(spellList, new SpellAdapter.SpellClickListener() {
+        recyclerView = (RecyclerView) findViewById(R.id.monster_list);
+        monsterList = new ArrayList<>();
+        adapter = new MonsterAdapter(monsterList, new MonsterAdapter.MonsterClickListener() {
             @Override
-            public void onClick(Spell spell) {
-                binding.setSpell(spell);
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            public void onClick(Monster monster) {
+//                binding.setMonster(monster);
                 recyclerView.requestFocus();
+
+                Intent intent = new Intent(MonstersActivity.this, MonsterDetailActivity.class);
+                intent.putExtra("monster", monster);
+                startActivity(intent);
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        bottomSheetBehavior.setHideable(true);
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-
-        InputStream inputStream = getResources().openRawResource(R.raw.spells);
+        InputStream inputStream = getResources().openRawResource(R.raw.monsters);
         try {
             BufferedReader streamReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
             StringBuilder responseStrBuilder = new StringBuilder();
@@ -144,11 +127,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             //returns the json object
             Gson gson = new Gson();
-            Type collectionType = new TypeToken<List<Spell>>(){}.getType();
-            spellList = gson.fromJson(responseStrBuilder.toString(), collectionType);
-            Collections.sort(spellList, SpellSorter.alphabetically());
+            Type collectionType = new TypeToken<List<Monster>>(){}.getType();
+            monsterList = gson.fromJson(responseStrBuilder.toString(), collectionType);
+            Collections.sort(monsterList, MonsterSorter.alphabetically());
 
-            adapter.swap(spellList);
+            adapter.swap(monsterList);
             adapter.notifyDataSetChanged();
         } catch (IOException e) {
             e.printStackTrace();
