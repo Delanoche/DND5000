@@ -83,13 +83,13 @@ public class MonstersActivity extends AppCompatActivity implements NavigationVie
 
             @Override
             public void afterTextChanged(Editable editable) {
-                final String text = editable.toString();
+                final String text = editable.toString().toLowerCase();
                 Observable.from(monsterList)
                         .subscribeOn(Schedulers.computation())
                         .filter(new Func1<Monster, Boolean>() {
                             @Override
                             public Boolean call(Monster monster) {
-                                return monster.getName().contains(text);
+                                return monster.getName().toLowerCase().contains(text);
                             }
                         })
                         .observeOn(AndroidSchedulers.mainThread())
