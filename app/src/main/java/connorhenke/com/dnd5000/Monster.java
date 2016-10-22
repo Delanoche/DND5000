@@ -95,4 +95,124 @@ public class Monster {
 
     @SerializedName("legendary_actions")
     private List<Action> legendaryActions;
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getSubtype() {
+        return subtype;
+    }
+
+    public String getAlignment() {
+        return alignment;
+    }
+
+    public int getArmorClass() {
+        return armorClass;
+    }
+
+    public int getHitPoints() {
+        return hitPoints;
+    }
+
+    public String getHitDice() {
+        return hitDice;
+    }
+
+    public String getSpeed() {
+        return speed;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public int getDexterity() {
+        return dexterity;
+    }
+
+    public int getConstitution() {
+        return constitution;
+    }
+
+    public int getIntelligence() {
+        return intelligence;
+    }
+
+    public int getWisdom() {
+        return wisdom;
+    }
+
+    public int getNacharismame() {
+        return nacharismame;
+    }
+
+    public int getConstitutionSave() {
+        return constitutionSave;
+    }
+
+    public int getIntelligenceSave() {
+        return intelligenceSave;
+    }
+
+    public int getWisdomSave() {
+        return wisdomSave;
+    }
+
+    public int getHistory() {
+        return history;
+    }
+
+    public int getPerception() {
+        return perception;
+    }
+
+    public String getDamageVulnerabilities() {
+        return damageVulnerabilities;
+    }
+
+    public String getDamageResistances() {
+        return damageResistances;
+    }
+
+    public String getDamageImmunities() {
+        return damageImmunities;
+    }
+
+    public String getConditionImmunities() {
+        return conditionImmunities;
+    }
+
+    public String getSenses() {
+        return senses;
+    }
+
+    public String getLanguages() {
+        return languages;
+    }
+
+    public String getChallengeRating() {
+        return challengeRating;
+    }
+
+    public List<Action> getSpecialAbilities() {
+        return specialAbilities;
+    }
+
+    public List<Action> getActions() {
+        return actions;
+    }
+
+    public List<Action> getLegendaryActions() {
+        return legendaryActions;
+    }
 }
