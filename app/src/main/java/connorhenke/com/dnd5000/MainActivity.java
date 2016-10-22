@@ -26,6 +26,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +38,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -129,7 +133,6 @@ public class MainActivity extends AppCompatActivity
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
         InputStream inputStream = getResources().openRawResource(R.raw.spells);
-        JSONArray array;
         try {
             BufferedReader streamReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
             StringBuilder responseStrBuilder = new StringBuilder();
@@ -139,15 +142,14 @@ public class MainActivity extends AppCompatActivity
                 responseStrBuilder.append(inputStr);
 
             //returns the json object
-            array = new JSONArray(responseStrBuilder.toString());
-            for (int i = 0; i < array.length(); i++) {
-                Spell spell = Spell.fromJson(array.getJSONObject(i));
-                spellList.add(spell);
-            }
+            Gson gson = new Gson();
+            Type collectionType = new TypeToken<List<Spell>>(){}.getType();
+            spellList = gson.fromJson(responseStrBuilder.toString(), collectionType);
             Collections.sort(spellList, Sorter.alphabetically());
-            adapter.notifyDataSetChanged();
 
-        } catch (IOException|JSONException e) {
+            adapter.swap(spellList);
+            adapter.notifyDataSetChanged();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
