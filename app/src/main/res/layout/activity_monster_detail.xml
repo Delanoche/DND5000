@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="monster"
+            type="connorhenke.com.dnd5000.Monster" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_monster_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="connorhenke.com.dnd5000.MonsterDetailActivity">
+
+        <LinearLayout
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:paddingTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:text="@{monster.name}"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="italic"
+                android:paddingTop="4dp"
+                android:textColor="@android:color/white"
+                android:text='@{monster.getHeaderString()}'
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                android:paddingTop="8dp"
+                android:textColor="@android:color/black"
+                android:text='@{"Armor Class: " + monster.armorClass}' />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                android:paddingTop="8dp"
+                android:textColor="@android:color/black"
+                android:text='@{"Hit Points: " + monster.getHitPointString()}' />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                android:paddingTop="8dp"
+                android:textColor="@android:color/black"
+                android:text='@{"Speed: " + monster.speed}' />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorPrimaryDark" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="8dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/str_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:paddingTop="8dp"
+                    android:textColor="@android:color/black"
+                    android:text="STR" />
+
+                <TextView
+                    android:layout_below="@id/str_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:paddingTop="4dp"
+                    android:textColor="@android:color/black"
+                    android:text='@{monster.getStatString(monster.strength)}' />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/dex_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:paddingTop="8dp"
+                    android:textColor="@android:color/black"
+                    android:text="DEX" />
+
+                <TextView
+                    android:layout_below="@id/dex_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:paddingTop="4dp"
+                    android:textColor="@android:color/black"
+                    android:text='@{monster.getStatString(monster.dexterity)}' />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/con_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:paddingTop="8dp"
+                    android:textColor="@android:color/black"
+                    android:text="CON" />
+
+                <TextView
+                    android:layout_below="@id/con_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:paddingTop="4dp"
+                    android:textColor="@android:color/black"
+                    android:text='@{monster.getStatString(monster.constitution)}' />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/int_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:paddingTop="8dp"
+                    android:textColor="@android:color/black"
+                    android:text="INT" />
+
+                <TextView
+                    android:layout_below="@id/int_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:paddingTop="4dp"
+                    android:textColor="@android:color/black"
+                    android:text='@{monster.getStatString(monster.intelligence)}' />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/wis_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:paddingTop="8dp"
+                    android:textColor="@android:color/black"
+                    android:text="WIS" />
+
+                <TextView
+                    android:layout_below="@id/wis_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:paddingTop="4dp"
+                    android:textColor="@android:color/black"
+                    android:text='@{monster.getStatString(monster.wisdom)}' />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/cha_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:paddingTop="8dp"
+                    android:textColor="@android:color/black"
+                    android:text="CHA" />
+
+                <TextView
+                    android:layout_below="@id/cha_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:paddingTop="4dp"
+                    android:textColor="@android:color/black"
+                    android:text='@{monster.getStatString(monster.charisma)}' />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorPrimaryDark" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="8dp"
+            android:orientation="vertical">
+
+            <!--There are no skills-->
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:textStyle="bold"-->
+                <!--android:paddingTop="8dp"-->
+                <!--android:textColor="@android:color/black"-->
+                <!--android:text='@{"Skills: " + monster.skills}' />-->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                android:paddingTop="8dp"
+                android:textColor="@android:color/black"
+                android:text='@{"Senses: " + monster.senses}' />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                android:paddingTop="8dp"
+                android:textColor="@android:color/black"
+                android:text='@{"Languages: " + monster.languages}' />
+
+            <!--No XP-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                android:paddingTop="8dp"
+                android:textColor="@android:color/black"
+                android:text='@{"Challenge: " + monster.challengeRating}' />
+        </LinearLayout>
+    </LinearLayout>
+</layout>
+

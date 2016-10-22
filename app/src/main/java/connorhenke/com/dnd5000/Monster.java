@@ -1,10 +1,14 @@
 package connorhenke.com.dnd5000;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Monster {
+public class Monster implements Parcelable {
 
     @SerializedName("name")
     private String name;
@@ -49,7 +53,7 @@ public class Monster {
     private int wisdom;
 
     @SerializedName("charisma")
-    private int nacharismame;
+    private int charisma;
 
     @SerializedName("constitution_save")
     private int constitutionSave;
@@ -152,8 +156,8 @@ public class Monster {
         return wisdom;
     }
 
-    public int getNacharismame() {
-        return nacharismame;
+    public int getCharisma() {
+        return charisma;
     }
 
     public int getConstitutionSave() {
@@ -214,5 +218,134 @@ public class Monster {
 
     public List<Action> getLegendaryActions() {
         return legendaryActions;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeString(this.size);
+        dest.writeString(this.type);
+        dest.writeString(this.subtype);
+        dest.writeString(this.alignment);
+        dest.writeInt(this.armorClass);
+        dest.writeInt(this.hitPoints);
+        dest.writeString(this.hitDice);
+        dest.writeString(this.speed);
+        dest.writeInt(this.strength);
+        dest.writeInt(this.dexterity);
+        dest.writeInt(this.constitution);
+        dest.writeInt(this.intelligence);
+        dest.writeInt(this.wisdom);
+        dest.writeInt(this.charisma);
+        dest.writeInt(this.constitutionSave);
+        dest.writeInt(this.intelligenceSave);
+        dest.writeInt(this.wisdomSave);
+        dest.writeInt(this.history);
+        dest.writeInt(this.perception);
+        dest.writeString(this.damageVulnerabilities);
+        dest.writeString(this.damageResistances);
+        dest.writeString(this.damageImmunities);
+        dest.writeString(this.conditionImmunities);
+        dest.writeString(this.senses);
+        dest.writeString(this.languages);
+        dest.writeString(this.challengeRating);
+        dest.writeList(this.specialAbilities);
+        dest.writeList(this.actions);
+        dest.writeList(this.legendaryActions);
+    }
+
+    protected Monster(Parcel in) {
+        this.name = in.readString();
+        this.size = in.readString();
+        this.type = in.readString();
+        this.subtype = in.readString();
+        this.alignment = in.readString();
+        this.armorClass = in.readInt();
+        this.hitPoints = in.readInt();
+        this.hitDice = in.readString();
+        this.speed = in.readString();
+        this.strength = in.readInt();
+        this.dexterity = in.readInt();
+        this.constitution = in.readInt();
+        this.intelligence = in.readInt();
+        this.wisdom = in.readInt();
+        this.charisma = in.readInt();
+        this.constitutionSave = in.readInt();
+        this.intelligenceSave = in.readInt();
+        this.wisdomSave = in.readInt();
+        this.history = in.readInt();
+        this.perception = in.readInt();
+        this.damageVulnerabilities = in.readString();
+        this.damageResistances = in.readString();
+        this.damageImmunities = in.readString();
+        this.conditionImmunities = in.readString();
+        this.senses = in.readString();
+        this.languages = in.readString();
+        this.challengeRating = in.readString();
+        this.specialAbilities = new ArrayList<Action>();
+        in.readList(this.specialAbilities, Action.class.getClassLoader());
+        this.actions = new ArrayList<Action>();
+        in.readList(this.actions, Action.class.getClassLoader());
+        this.legendaryActions = new ArrayList<Action>();
+        in.readList(this.legendaryActions, Action.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<Monster> CREATOR = new Parcelable.Creator<Monster>() {
+        @Override
+        public Monster createFromParcel(Parcel source) {
+            return new Monster(source);
+        }
+
+        @Override
+        public Monster[] newArray(int size) {
+            return new Monster[size];
+        }
+    };
+
+    public String getHeaderString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(size);
+        builder.append(" ");
+        builder.append(type);
+
+        if (subtype != null && subtype.length() > 0) {
+            builder.append(" (");
+            builder.append(subtype);
+            builder.append(")");
+        }
+
+        builder.append(", ");
+        builder.append(alignment);
+        return builder.toString();
+    }
+
+    public String getHitPointString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(hitPoints);
+        builder.append(" (");
+        builder.append(hitDice);
+        builder.append(")");
+
+        return builder.toString();
+    }
+
+
+
+    public String getStatString(int value) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(value);
+        builder.append(" (");
+
+        int modifier = (int) Math.floor((value - 10) / 2);
+        builder.append(modifier >= 0 ? "+" : "");
+        builder.append(modifier);
+        builder.append(")");
+
+        return builder.toString();
     }
 }

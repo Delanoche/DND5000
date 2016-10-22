@@ -84,6 +84,7 @@ public class Spell {
             }
 
         }
+
         return builder.toString();
     }
 
@@ -111,6 +112,7 @@ public class Spell {
             builder.append(" ");
             builder.append(temp);
         }
+
         return StringUtils.capitalize(builder.toString());
     }
 
@@ -120,6 +122,7 @@ public class Spell {
         builder.append(level);
         builder.append(" ");
         builder.append(school);
+
         return builder.toString();
     }
 

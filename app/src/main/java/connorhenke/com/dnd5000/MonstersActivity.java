@@ -45,8 +45,6 @@ public class MonstersActivity extends AppCompatActivity implements NavigationVie
     private RecyclerView recyclerView;
     private List<Monster> monsterList;
     private MonsterAdapter adapter;
-    private View bottomSheet;
-    private BottomSheetBehavior bottomSheetBehavior;
     private EditText search;
     private boolean isSearchVisible;
 
@@ -63,7 +61,6 @@ public class MonstersActivity extends AppCompatActivity implements NavigationVie
             public void onFocusChange(View v, boolean hasFocus) {
                 InputMethodManager methodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                 if (hasFocus) {
-                    bottomSheetBehavior.setState(bottomSheetBehavior.STATE_HIDDEN);
                     methodManager.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT);
                 } else {
                     methodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
@@ -104,22 +101,20 @@ public class MonstersActivity extends AppCompatActivity implements NavigationVie
             }
         });
         recyclerView = (RecyclerView) findViewById(R.id.monster_list);
-        bottomSheet = findViewById(R.id.bottom_sheet);
         monsterList = new ArrayList<>();
         adapter = new MonsterAdapter(monsterList, new MonsterAdapter.MonsterClickListener() {
             @Override
             public void onClick(Monster monster) {
-                binding.setMonster(monster);
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+//                binding.setMonster(monster);
                 recyclerView.requestFocus();
+
+                Intent intent = new Intent(MonstersActivity.this, MonsterDetailActivity.class);
+                intent.putExtra("monster", monster);
+                startActivity(intent);
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        bottomSheetBehavior.setHideable(true);
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
         InputStream inputStream = getResources().openRawResource(R.raw.monsters);
         try {
