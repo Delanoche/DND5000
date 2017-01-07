@@ -3,11 +3,13 @@ package connorhenke.com.dnd5000;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -195,14 +197,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (!isSearchVisible) {
                 search.setVisibility(View.VISIBLE);
                 setTitle("");
-                item.setIcon(R.drawable.ic_clear_white_24dp);
+                item.setIcon(getDrawable(R.drawable.rotate));
+                ((AnimatedVectorDrawable)item.getIcon()).start();
+//                item.setIcon(R.drawable.ic_clear_white_24dp);
                 isSearchVisible = true;
                 search.requestFocus();
             } else {
                 search.setVisibility(View.GONE);
                 search.getEditableText().clear();
                 setTitle(R.string.app_name);
-                item.setIcon(R.drawable.ic_search_white_24dp);
+                item.setIcon(getDrawable(R.drawable.rotate_reverse));
+                ((AnimatedVectorDrawable)item.getIcon()).start();
+//                item.setIcon(R.drawable.ic_search_white_24dp);
                 isSearchVisible = false;
             }
             return true;
