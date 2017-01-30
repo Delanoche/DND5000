@@ -221,6 +221,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(this, CalculatorActivity.class));
         } else if (id == R.id.nav_monsters) {
             startActivity(new Intent(this, MonstersActivity.class));
+        } else if (id == R.id.nav_characters) {
+            startActivity(new Intent(this, CharacterListActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
