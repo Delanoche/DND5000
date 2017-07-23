@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingTop="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/roll_query"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/roll_result"
+        android:layout_width="0dp"
+        android:textSize="16sp"
+        android:paddingLeft="16dp"
+        tools:text="2d8"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_chainStyle="spread" />
+
+    <TextView
+        android:id="@+id/roll_result"
+        android:layout_width="0dp"
+        android:textSize="16sp"
+        android:fontFamily="bold"
+        app:layout_constraintRight_toRightOf="parent"
+        android:paddingRight="16dp"
+        tools:text="14"
+        app:layout_constraintLeft_toRightOf="@+id/roll_query"
+        android:layout_height="wrap_content" />
+
+</android.support.constraint.ConstraintLayout>
