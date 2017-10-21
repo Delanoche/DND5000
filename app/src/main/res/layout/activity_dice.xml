@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="connorhenke.com.dnd5000.DiceActivity">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rolls"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/roll"
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        android:paddingBottom="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/roll"
+        android:textSize="24sp"
+        android:padding="4dp"
+        tools:text="6d20+2"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:fontFamily="bold"
+        app:elevation="6dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintTop_toBottomOf="@id/rolls"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/nums"
+        android:layout_width="0dp"
+        android:layout_height="40dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/nums"
+        app:elevation="6dp"
+        android:isScrollContainer="false"
+        app:layout_constraintTop_toBottomOf="@id/roll"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/dice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/dice"
+        app:elevation="6dp"
+        android:isScrollContainer="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nums"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+
+</android.support.constraint.ConstraintLayout>

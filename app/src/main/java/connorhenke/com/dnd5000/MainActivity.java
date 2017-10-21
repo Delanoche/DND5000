@@ -3,11 +3,13 @@ package connorhenke.com.dnd5000;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -61,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private BottomSheetBehavior bottomSheetBehavior;
     private EditText search;
     private boolean isSearchVisible;
+    private RecyclerView tagLayout;
+    private TagAdapter tagAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,14 +199,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (!isSearchVisible) {
                 search.setVisibility(View.VISIBLE);
                 setTitle("");
-                item.setIcon(R.drawable.ic_clear_white_24dp);
+                item.setIcon(getDrawable(R.drawable.rotate));
+                ((AnimatedVectorDrawable)item.getIcon()).start();
+//                item.setIcon(R.drawable.ic_clear_white_24dp);
                 isSearchVisible = true;
                 search.requestFocus();
             } else {
                 search.setVisibility(View.GONE);
                 search.getEditableText().clear();
                 setTitle(R.string.app_name);
-                item.setIcon(R.drawable.ic_search_white_24dp);
+                item.setIcon(getDrawable(R.drawable.rotate_reverse));
+                ((AnimatedVectorDrawable)item.getIcon()).start();
+//                item.setIcon(R.drawable.ic_search_white_24dp);
                 isSearchVisible = false;
             }
             return true;
@@ -216,8 +224,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_calculator) {
+        if (id == R.id.nav_spells) {
+            startActivity(new Intent(this, DiceActivity.class));
+        } else if (id == R.id.nav_calculator) {
             startActivity(new Intent(this, CalculatorActivity.class));
         } else if (id == R.id.nav_monsters) {
             startActivity(new Intent(this, MonstersActivity.class));

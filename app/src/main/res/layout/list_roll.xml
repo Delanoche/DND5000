@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingTop="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/roll_query"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/roll_result"
+        android:layout_width="0dp"
+        android:textSize="24sp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        tools:text="2d8"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_chainStyle="spread" />
+
+    <TextView
+        android:id="@+id/roll_result"
+        android:gravity="center_vertical|end"
+        android:layout_width="wrap_content"
+        android:textSize="40sp"
+        android:fontFamily="bold"
+        app:layout_constraintRight_toRightOf="parent"
+        android:paddingRight="16dp"
+        tools:text="14"
+        app:layout_constraintLeft_toRightOf="@+id/roll_query"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp"
+        android:id="@+id/roll_results"
+        tools:text="1 + 2 + 2 + 4 + 10"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/roll_query"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/roll_result"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+
+</android.support.constraint.ConstraintLayout>
