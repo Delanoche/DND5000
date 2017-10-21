@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "connorhenke.com.dnd5000"
-        minSdkVersion 21
-        targetSdkVersion 25
+        minSdkVersion 26
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -27,18 +27,21 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    // Because RxAndroid releases are few and far between, it is recommended you also
-    // explicitly depend on RxJava's latest version for bug fixes and new features.
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support:cardview-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:design:26.1.0'
+    compile 'com.android.support:cardview-v7:26.1.0'
     compile 'com.google.code.gson:gson:2.7'
-    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+// Because RxAndroid releases are few and far between, it is recommended you also
+// explicitly depend on RxJava's latest version for bug fixes and new features.
+    compile 'io.reactivex.rxjava2:rxjava:2.1.5'
     compile 'org.apache.commons:commons-lang3:3.4'
-    compile 'io.reactivex:rxjava:1.1.6'
     compile 'com.google.android:flexbox:0.3.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
     compile 'com.xwray:groupie:2.0.0-alpha2'
     compile 'com.robinhood.ticker:ticker:1.2.0'
+    compile "android.arch.persistence.room:runtime:1.0.0-rc1"
+    annotationProcessor "android.arch.persistence.room:compiler:1.0.0-rc1"
+    compile "android.arch.persistence.room:rxjava2:1.0.0-rc1"
 }

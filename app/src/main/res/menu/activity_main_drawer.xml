@@ -14,6 +14,10 @@
             android:id="@+id/nav_monsters"
             android:icon="@drawable/ic_pets_black_24dp"
             android:title="@string/monsters" />
+        <item
+            android:id="@+id/nav_characters"
+            android:icon="@drawable/ic_directions_walk_black_24dp"
+            android:title="Characters" />
     </group>
 
 </menu>

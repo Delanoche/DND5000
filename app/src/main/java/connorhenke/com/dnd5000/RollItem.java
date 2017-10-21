@@ -101,15 +101,15 @@ public class RollItem extends Item<ViewHolder> {
             });
             final ObjectAnimator x = ObjectAnimator.ofFloat(resultText, "scaleX", 1.5f, 1.0f);
             final ObjectAnimator y = ObjectAnimator.ofFloat(resultText, "scaleY", 1.5f, 1.0f);
-            x.setDuration(900);
-            y.setDuration(900);
+            x.setDuration(150);
+            y.setDuration(150);
             x.setEvaluator(new FloatEvaluator());
             y.setEvaluator(new FloatEvaluator());
             animators.add(x);
             animators.add(y);
             if (green || red) {
                 final ObjectAnimator animator = ObjectAnimator.ofInt(resultText, "textColor", Color.GRAY, color);
-                animator.setDuration(300);
+                animator.setDuration(150);
                 animator.setEvaluator(new ArgbEvaluator());
                 animators.add(animator);
             }

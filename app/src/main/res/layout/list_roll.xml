@@ -24,7 +24,7 @@
         android:gravity="center_vertical|end"
         android:layout_width="wrap_content"
         android:textSize="40sp"
-        android:fontFamily="bold"
+        android:fontFamily="@font/vollkorn"
         app:layout_constraintRight_toRightOf="parent"
         android:paddingRight="16dp"
         tools:text="14"

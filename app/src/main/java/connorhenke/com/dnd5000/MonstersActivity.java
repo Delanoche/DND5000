@@ -34,11 +34,13 @@ import java.util.List;
 
 import connorhenke.com.dnd5000.databinding.ActivityMainBinding;
 import connorhenke.com.dnd5000.databinding.ActivityMonstersBinding;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Predicate;
+import io.reactivex.schedulers.Schedulers;
 
 public class MonstersActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -81,26 +83,36 @@ public class MonstersActivity extends AppCompatActivity implements NavigationVie
             @Override
             public void afterTextChanged(Editable editable) {
                 final String text = editable.toString().toLowerCase();
-                Observable.from(monsterList)
+                Observable.fromIterable(monsterList)
                         .subscribeOn(Schedulers.computation())
-                        .filter(new Func1<Monster, Boolean>() {
+                        .filter(new Predicate<Monster>() {
                             @Override
-                            public Boolean call(Monster monster) {
+                            public boolean test(@NonNull Monster monster) throws Exception {
                                 return monster.getName().toLowerCase().contains(text);
                             }
                         })
                         .observeOn(AndroidSchedulers.mainThread())
                         .toList()
-                        .subscribe(new Action1<List<Monster>>() {
+                        .subscribe(new SingleObserver<List<Monster>>() {
                             @Override
-                            public void call(List<Monster> monsters) {
+                            public void onSubscribe(@NonNull Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(@NonNull List<Monster> monsters) {
                                 adapter.swap(monsters);
                                 adapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onError(@NonNull Throwable e) {
+
                             }
                         });
             }
         });
-        recyclerView = (RecyclerView) findViewById(R.id.monster_list);
+        recyclerView = findViewById(R.id.monster_list);
         monsterList = new ArrayList<>();
         adapter = new MonsterAdapter(monsterList, new MonsterAdapter.MonsterClickListener() {
             @Override

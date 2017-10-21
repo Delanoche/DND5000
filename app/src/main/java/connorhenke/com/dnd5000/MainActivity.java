@@ -48,11 +48,14 @@ import java.util.Collections;
 import java.util.List;
 
 import connorhenke.com.dnd5000.databinding.ActivityMainBinding;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -100,21 +103,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void afterTextChanged(Editable editable) {
                 final String text = editable.toString().toLowerCase();
-                Observable.from(spellList)
+                Observable.fromIterable(spellList)
                         .subscribeOn(Schedulers.computation())
-                        .filter(new Func1<Spell, Boolean>() {
+                        .filter(new Predicate<Spell>() {
                             @Override
-                            public Boolean call(Spell spell) {
+                            public boolean test(@NonNull Spell spell) throws Exception {
                                 return spell.getName().contains(text) || spell.getDescription().contains(text) || spell.getSchool().contains(text);
                             }
                         })
                         .observeOn(AndroidSchedulers.mainThread())
                         .toList()
-                        .subscribe(new Action1<List<Spell>>() {
+                        .subscribe(new SingleObserver<List<Spell>>() {
                             @Override
-                            public void call(List<Spell> spells) {
+                            public void onSubscribe(@NonNull Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(@NonNull List<Spell> spells) {
                                 adapter.swap(spells);
                                 adapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onError(@NonNull Throwable e) {
+
                             }
                         });
             }
@@ -230,6 +243,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(this, CalculatorActivity.class));
         } else if (id == R.id.nav_monsters) {
             startActivity(new Intent(this, MonstersActivity.class));
+        } else if (id == R.id.nav_characters) {
+            startActivity(new Intent(this, CharactersActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
