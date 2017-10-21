@@ -49,6 +49,7 @@ public class CreateCharacterActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         adapter.addFragment(new CharacterInfoFragment(), "Basic");
         adapter.addFragment(new CharacterStatsFragment(), "Stats");
+        adapter.addFragment(new EquipmentFragment(), "Items");
         adapter.notifyDataSetChanged();
     }
 
