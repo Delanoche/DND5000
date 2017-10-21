@@ -3,6 +3,7 @@ package connorhenke.com.dnd5000;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
+import android.animation.FloatEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.graphics.Color;
@@ -38,7 +39,8 @@ public class RollItem extends Item<ViewHolder> {
     public void bind(@NonNull ViewHolder viewHolder, int position) {
         TextView query = (TextView) viewHolder.itemView.findViewById(R.id.roll_query);
         TextView resultText = (TextView) viewHolder.itemView.findViewById(R.id.roll_result);
-        query.setText("" + result.diceNum + "d" + result.diceType);
+        String additive = result.addition > 0 ? " + " + result.addition : result.addition == 0 ? "" : " - " + (result.addition * -1);
+        query.setText("" + result.diceNum + "d" + result.diceType + additive);
         int color;
         boolean green = result.result == result.diceNum * result.diceType;
         boolean red = result.result == result.diceNum;
@@ -97,9 +99,17 @@ public class RollItem extends Item<ViewHolder> {
 
                 }
             });
+            final ObjectAnimator x = ObjectAnimator.ofFloat(resultText, "scaleX", 1.5f, 1.0f);
+            final ObjectAnimator y = ObjectAnimator.ofFloat(resultText, "scaleY", 1.5f, 1.0f);
+            x.setDuration(900);
+            y.setDuration(900);
+            x.setEvaluator(new FloatEvaluator());
+            y.setEvaluator(new FloatEvaluator());
+            animators.add(x);
+            animators.add(y);
             if (green || red) {
                 final ObjectAnimator animator = ObjectAnimator.ofInt(resultText, "textColor", Color.GRAY, color);
-                animator.setDuration(1000);
+                animator.setDuration(300);
                 animator.setEvaluator(new ArgbEvaluator());
                 animators.add(animator);
             }

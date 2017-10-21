@@ -129,7 +129,7 @@ public class DiceActivity extends AppCompatActivity {
                     total += current;
                     array[i] = current;
                 }
-                historyAdapter.add(new RollItem(new RollResult(multiplier, die, total, array)));
+                historyAdapter.add(new RollItem(new RollResult(multiplier, die, total, array, 0)));
                 history.scrollToPosition(historyAdapter.getItemCount() - 1);
             }
         });
